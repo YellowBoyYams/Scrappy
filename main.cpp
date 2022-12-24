@@ -28,7 +28,7 @@ int main(){
         return -1;
     }
 
-
+    printf("Welcome to Scrappy!");
 
     glfwMakeContextCurrent(window);
     glewExperimental = true;
@@ -61,7 +61,7 @@ int main(){
     do{
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER);
         glUseProgram(programID);
-        
+
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
