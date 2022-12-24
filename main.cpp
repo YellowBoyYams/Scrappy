@@ -3,6 +3,7 @@
 #include "GL/glew.h"
 #include <GLFW/glfw3.h>
 #include "glm/glm.hpp"
+#include "Misc/loadShaders.h"
 
 using namespace glm;
 
@@ -27,6 +28,8 @@ int main(){
         return -1;
     }
 
+
+
     glfwMakeContextCurrent(window);
     glewExperimental = true;
     if(glewInit() != GLEW_OK){
@@ -35,10 +38,36 @@ int main(){
     }
 
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+
+    GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
+	GLuint programID = LoadShaders( "Shaders/vertex.glsl", "Shaders/fragment.glsl");
+
+
+	static const GLfloat verticies[] = { 
+		-1.0f, -1.0f, 0.0f,
+		 1.0f, -1.0f, 0.0f,
+		 0.0f,  1.0f, 0.0f,
+	};
+
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
 
     do{
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER);
+        glUseProgram(programID);
+        
+        glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDisableVertexAttribArray(0);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
