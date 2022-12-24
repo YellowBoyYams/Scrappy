@@ -1,9 +1,9 @@
 {
     "hide-files.files": [
         "GLFW",
-        ".vscode",
         "GL",
-        "glm"
+        "glm",
+        ".vscode"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -13,9 +13,9 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         "GLFW": true,
-        ".vscode": true,
         "GL": true,
-        "glm": true
+        "glm": true,
+        ".vscode": true
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }
